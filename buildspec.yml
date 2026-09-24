@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto25
+    commands:
+      - export JAVA_HOME=$(ls -d /usr/lib/jvm/java-25-amazon-corretto* | head -n 1)
+      - export PATH=$JAVA_HOME/bin:$PATH
+      - java -version
+  build:
+    commands:
+      - chmod +x mvnw
+      - ./mvnw clean package -DskipTests
+
+artifacts:
+  files:
+    - target/*.jar
+  discard-paths: yes
